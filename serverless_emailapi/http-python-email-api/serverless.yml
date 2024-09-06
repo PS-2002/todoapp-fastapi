@@ -1,0 +1,23 @@
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: http-python-email-api
+frameworkVersion: '4'
+
+provider:
+  name: aws
+  runtime: python3.9
+  region: ap-south-1
+
+functions:
+  app:
+    handler: uvicorn.main.run
+    events:
+      - httpApi:
+          path: /send-email
+          method: POST
+
+plugins:
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    port: 8000        
